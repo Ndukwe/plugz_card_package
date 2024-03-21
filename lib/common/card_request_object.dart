@@ -3,8 +3,17 @@
 ///CREDIT=for top up (wallet to card) operation;
 ///DEBIT=for withdrawal (card to wallet) operation;
 ///BALANCE=for checking balance
+
+enum OpCommandType {
+  PAYMENT,
+  CREDIT,
+  DEBIT,
+  BALANCE }
+
 class CardRequestObject {
-  String commandType = 'PAYMENT';
+ // String commandType = 'PAYMENT';
+  //OpCommandType commandType=OpCommandType.PAYMENT;
+  OpCommandType commandType=OpCommandType.PAYMENT;
   double? amount = 0;
   String userId;
   CardRequestObject({required this.commandType,required this.userId,this.amount});

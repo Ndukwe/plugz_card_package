@@ -30,7 +30,7 @@ class PlugzCard {
             //success
             double dAmount = cardReadResult.amount;
             String? sCardId = cardReadResult.cardId;
-            if (cardRequest.amount > dAmount) {
+            if (cardRequest.amount! > dAmount) {
               //balance not enough for payment operation
               cardResponse.statusCode = 5;
               cardResponse.amount = cardReadResult.amount;
@@ -41,7 +41,7 @@ class PlugzCard {
             } else {
               //make deductions and write to card
               var cardTransitMsg = CardTransitMsg();
-              cardTransitMsg.amount = dAmount - cardRequest.amount;
+              cardTransitMsg.amount = dAmount - cardRequest.amount!;
               cardTransitMsg.cardId = sCardId;
               var cardWriteResult = await _writeNfcCard(cardTransitMsg);
               if (cardWriteResult.statusCode > 0) {
@@ -75,7 +75,7 @@ class PlugzCard {
 
             //add the amount to current card balance.
             var cardTransitMsg = CardTransitMsg();
-            cardTransitMsg.amount = dAmount + cardRequest.amount;
+            cardTransitMsg.amount = dAmount + cardRequest.amount!;
             cardTransitMsg.cardId = sCardId;
             var cardWriteResult = await _writeNfcCard(cardTransitMsg);
             if (cardWriteResult.statusCode > 0) {
@@ -105,7 +105,7 @@ class PlugzCard {
             //success
             double dAmount = cardReadResult.amount;
             String? sCardId = cardReadResult.cardId;
-            if (cardRequest.amount > dAmount) {
+            if (cardRequest.amount! > dAmount) {
               //balance not enough for debit operation
               cardResponse.statusCode = 5;
               cardResponse.amount = cardReadResult.amount;
@@ -116,7 +116,7 @@ class PlugzCard {
             } else {
               //make deductions and write to card
               var cardTransitMsg = CardTransitMsg();
-              cardTransitMsg.amount = dAmount - cardRequest.amount;
+              cardTransitMsg.amount = dAmount - cardRequest.amount!;
               cardTransitMsg.cardId = sCardId;
               var cardWriteResult = await _writeNfcCard(cardTransitMsg);
               if (cardWriteResult.statusCode > 0) {
@@ -162,6 +162,7 @@ class PlugzCard {
     }
   }
 
+  
   // Read NFC Card and return result object
   Future<CardTransitMsg> _readNfcCard() async {
     var cardTransitMsg =

@@ -1,3 +1,5 @@
+
+
 ///JSON reponse object. The Status Code are enumerated below.
 ///-1 = Device in ready state but no operation has started;
 ///0 = Operation completed successfully;

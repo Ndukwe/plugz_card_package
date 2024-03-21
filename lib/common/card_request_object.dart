@@ -3,7 +3,7 @@
 ///CREDIT=for top up (wallet to card) operation;
 ///DEBIT=for withdrawal (card to wallet) operation;
 ///BALANCE=for checking balance
-final class CardRequestObject {
+class CardRequestObject {
   String commandType = 'PAYMENT';
   double amount = 0;
   String? userId;

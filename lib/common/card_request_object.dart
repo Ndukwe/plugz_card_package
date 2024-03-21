@@ -7,5 +7,5 @@ final class CardRequestObject {
   String commandType = 'PAYMENT';
   double amount = 0;
   String? userId;
-  CardRequestObject();
+  CardRequestObject(this.amount,this.userId,this.commandType);
 }

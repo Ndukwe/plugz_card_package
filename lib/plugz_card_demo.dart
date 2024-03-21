@@ -6,9 +6,9 @@ import 'package:plugz_card_demo/common/card_transit_object.dart';
 
 /// Plugz Card plugin for NFC and RFID cards.
 class PlugzCard {
-  final CardRequestObject cardRequest;
+  //final CardRequestObject cardRequest;
 
-  PlugzCard({required this.cardRequest});
+ // PlugzCard({required this.cardRequest});
 
   /// Execute card Card Operation. CommandType are:
   /// PAYMENT: For initiating payment.
@@ -25,23 +25,23 @@ class PlugzCard {
             //error occured. determine which error based on statusCode
             cardResponse.statusCode = cardReadResult.statusCode;
             cardResponse.message = _getErrorMessage(cardReadResult.statusCode);
-            cardResponse.userId = cardRequest.userId;
+            cardResponse.userId = cardMsg.userId;
           } else {
             //success
             double dAmount = cardReadResult.amount;
             String? sCardId = cardReadResult.cardId;
-            if (cardRequest.amount! > dAmount) {
+            if (cardMsg.amount! > dAmount) {
               //balance not enough for payment operation
               cardResponse.statusCode = 5;
               cardResponse.amount = cardReadResult.amount;
               cardResponse.cardId = cardReadResult.cardId;
-              cardResponse.userId = cardRequest.userId;
+              cardResponse.userId = cardMsg.userId;
               cardResponse.message =
                   '${_getErrorMessage(cardReadResult.statusCode)} Current balance is ${cardReadResult.amount}';
             } else {
               //make deductions and write to card
               var cardTransitMsg = CardTransitMsg();
-              cardTransitMsg.amount = dAmount - cardRequest.amount!;
+              cardTransitMsg.amount = dAmount - cardMsg.amount!;
               cardTransitMsg.cardId = sCardId;
               var cardWriteResult = await _writeNfcCard(cardTransitMsg);
               if (cardWriteResult.statusCode > 0) {
@@ -49,13 +49,13 @@ class PlugzCard {
                 cardResponse.statusCode = cardWriteResult.statusCode;
                 cardResponse.message =
                     _getErrorMessage(cardWriteResult.statusCode);
-                cardResponse.userId = cardRequest.userId;
+                cardResponse.userId = cardMsg.userId;
               } else {
                 //success. return standard message';
                 cardResponse.statusCode = 0;
                 cardResponse.amount = cardWriteResult.amount;
                 cardResponse.cardId = cardWriteResult.cardId;
-                cardResponse.userId = cardRequest.userId;
+                cardResponse.userId = cardMsg.userId;
                 cardResponse.message = cardWriteResult.message;
               }
             }
@@ -67,7 +67,7 @@ class PlugzCard {
             //error occured. determine which error based on statusCode
             cardResponse.statusCode = cardReadResult.statusCode;
             cardResponse.message = _getErrorMessage(cardReadResult.statusCode);
-            cardResponse.userId = cardRequest.userId;
+            cardResponse.userId = cardMsg.userId;
           } else {
             //success
             double dAmount = cardReadResult.amount;
@@ -75,7 +75,7 @@ class PlugzCard {
 
             //add the amount to current card balance.
             var cardTransitMsg = CardTransitMsg();
-            cardTransitMsg.amount = dAmount + cardRequest.amount!;
+            cardTransitMsg.amount = dAmount + cardMsg.amount!;
             cardTransitMsg.cardId = sCardId;
             var cardWriteResult = await _writeNfcCard(cardTransitMsg);
             if (cardWriteResult.statusCode > 0) {
@@ -83,13 +83,13 @@ class PlugzCard {
               cardResponse.statusCode = cardWriteResult.statusCode;
               cardResponse.message =
                   _getErrorMessage(cardWriteResult.statusCode);
-              cardResponse.userId = cardRequest.userId;
+              cardResponse.userId = cardMsg.userId;
             } else {
               //success. return standard message';
               cardResponse.statusCode = 0;
               cardResponse.amount = cardWriteResult.amount;
               cardResponse.cardId = cardWriteResult.cardId;
-              cardResponse.userId = cardRequest.userId;
+              cardResponse.userId = cardMsg.userId;
               cardResponse.message = cardWriteResult.message;
             }
           }
@@ -100,23 +100,23 @@ class PlugzCard {
             //error occured. determine which error based on statusCode
             cardResponse.statusCode = cardReadResult.statusCode;
             cardResponse.message = _getErrorMessage(cardReadResult.statusCode);
-            cardResponse.userId = cardRequest.userId;
+            cardResponse.userId = cardMsg.userId;
           } else {
             //success
             double dAmount = cardReadResult.amount;
             String? sCardId = cardReadResult.cardId;
-            if (cardRequest.amount! > dAmount) {
+            if (cardMsg.amount! > dAmount) {
               //balance not enough for debit operation
               cardResponse.statusCode = 5;
               cardResponse.amount = cardReadResult.amount;
               cardResponse.cardId = cardReadResult.cardId;
-              cardResponse.userId = cardRequest.userId;
+              cardResponse.userId = cardMsg.userId;
               cardResponse.message =
                   '${_getErrorMessage(cardReadResult.statusCode)} Current balance is ${cardReadResult.amount}';
             } else {
               //make deductions and write to card
               var cardTransitMsg = CardTransitMsg();
-              cardTransitMsg.amount = dAmount - cardRequest.amount!;
+              cardTransitMsg.amount = dAmount - cardMsg.amount!;
               cardTransitMsg.cardId = sCardId;
               var cardWriteResult = await _writeNfcCard(cardTransitMsg);
               if (cardWriteResult.statusCode > 0) {
@@ -124,13 +124,13 @@ class PlugzCard {
                 cardResponse.statusCode = cardWriteResult.statusCode;
                 cardResponse.message =
                     _getErrorMessage(cardWriteResult.statusCode);
-                cardResponse.userId = cardRequest.userId;
+                cardResponse.userId = cardMsg.userId;
               } else {
                 //success. return standard message';
                 cardResponse.statusCode = 0;
                 cardResponse.amount = cardWriteResult.amount;
                 cardResponse.cardId = cardWriteResult.cardId;
-                cardResponse.userId = cardRequest.userId;
+                cardResponse.userId = cardMsg.userId;
                 cardResponse.message = cardWriteResult.message;
               }
             }
@@ -145,7 +145,7 @@ class PlugzCard {
             cardResponse.statusCode = 0;
             cardResponse.amount = cardResult.amount;
             cardResponse.cardId = cardResult.cardId;
-            cardResponse.userId = cardRequest.userId;
+            cardResponse.userId = cardMsg.userId;
             cardResponse.message =
                 "Success! Card ID is ${cardResult.cardId}. New balance is ${cardResult.amount}";
           }

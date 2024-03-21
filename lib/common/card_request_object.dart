@@ -5,7 +5,7 @@
 ///BALANCE=for checking balance
 class CardRequestObject {
   String commandType = 'PAYMENT';
-  double amount = 0;
-  String? userId;
-  CardRequestObject({required this.commandType,this.userId,required this.amount});
+  double? amount = 0;
+  String userId;
+  CardRequestObject({required this.commandType,required this.userId,this.amount});
 }

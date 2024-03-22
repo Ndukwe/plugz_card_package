@@ -19,7 +19,8 @@ class PlugzCard {
     var cardResponse = CardResponseObject(); //initialize the response object.
     try {
       switch (cardMsg.commandType) {
-        case 'PAYMENT': //payment command
+        case OpCommandType.PAYMENT://payment command
+         print('selected:${OpCommandType.PAYMENT}');
           var cardReadResult = await _readNfcCard();
           if (cardReadResult.statusCode > 0) {
             //error occured. determine which error based on statusCode
@@ -61,7 +62,8 @@ class PlugzCard {
             }
           }
           break;
-        case 'CREDIT': //save to card command
+        case OpCommandType.CREDIT: //save to card command
+          print('selected:${OpCommandType.CREDIT}');
           var cardReadResult = await _readNfcCard();
           if (cardReadResult.statusCode > 0) {
             //error occured. determine which error based on statusCode
@@ -94,7 +96,8 @@ class PlugzCard {
             }
           }
           break;
-        case 'DEBIT': //withdrawal from card command
+        case OpCommandType.DEBIT: //withdrawal from card command
+          print('selected:${OpCommandType.DEBIT}');
           var cardReadResult = await _readNfcCard();
           if (cardReadResult.statusCode > 0) {
             //error occured. determine which error based on statusCode
@@ -136,7 +139,8 @@ class PlugzCard {
             }
           }
           break;
-        case 'BALANCE':
+        case OpCommandType.BALANCE:
+          print('selected:${OpCommandType.BALANCE}');
           var cardResult = await _readNfcCard();
           if (cardResult.statusCode > 0) {
             //error occured. determine which error based on statusCode

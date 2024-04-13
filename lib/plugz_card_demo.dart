@@ -154,6 +154,22 @@ class PlugzCard {
                 "Success! Card ID is ${cardResult.cardId}. New balance is ${cardResult.amount}";
           }
           break;
+
+        case OpCommandType.ACTIVATE:
+          print('selected:${OpCommandType.ACTIVATE}');
+          var cardResult = await _readNfcCard();
+          if (cardResult.statusCode > 0) {
+            //error occured. determine which error based on statusCode
+          } else {
+            //success
+            cardResponse.statusCode = 0;
+            cardResponse.amount = cardResult.amount;
+            cardResponse.cardId = cardResult.cardId;
+            cardResponse.userId = cardMsg.userId;
+            cardResponse.message =
+            "Activated! Card ID is ${cardResult.cardId}.";
+          }
+          break;
         default:
       }
       return cardResponse;

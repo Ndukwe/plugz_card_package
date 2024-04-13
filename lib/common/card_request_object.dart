@@ -8,7 +8,8 @@ enum OpCommandType {
   PAYMENT,
   CREDIT,
   DEBIT,
-  BALANCE }
+  BALANCE,
+  ACTIVATE}
 
 class CardRequestObject {
  // String commandType = 'PAYMENT';
